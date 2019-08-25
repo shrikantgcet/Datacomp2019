@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.datacomp</groupId>
+  <artifactId>DatacompESBConfig_module</artifactId>
+  <version>1.0.0</version>
+  <packaging>pom</packaging>
+  <name>DatacompESBConfig_module</name>
+  <description>DatacompESBConfig_module</description>
+  <modules>
+    <module>artifacts\api\datacomp</module>
+    <module>artifacts\sequence\SubmitSupplier_IN_SEQ</module>
+    <module>artifacts\sequence\SubmitDonatedFoodDetails_IN_SEQ</module>
+    <module>artifacts\sequence\GetAvailableFoodDetails_IN_SEQ</module>
+    <module>artifacts\sequence\GetAvailableFoodDetails_OUT_SEQ</module>
+  </modules>
+</project>

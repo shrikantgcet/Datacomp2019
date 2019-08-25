@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="GetAvailableFoodDetails_IN_SEQ" trace="disable" xmlns="http://ws.apache.org/ns/synapse">
+
+<property expression="$ctx:query.param.City" name="City" scope="default" type="STRING" xmlns:ns="http://org.apache.synapse/xsd"/>
+<property expression="$ctx:query.param.PIN" name="PIN" scope="default" type="STRING" xmlns:ns="http://org.apache.synapse/xsd"/>
+
+<property name="REST_URL_POSTFIX" scope="axis2" value=""/>
+    <property name="HTTP_METHOD" scope="axis2" type="STRING" value="POST"/>
+    <property name="ContentType" scope="axis2" value="text/xml"/>
+    
+
+ <payloadFactory media-type="xml">
+        <format>
+      <ava:GetAvaialableFoodDetails xmlns:ava="http://data.business.govt.nz/services/availablefood">
+         <ava:city>$1</ava:city>
+         <ava:pin>$2</ava:pin>
+      </ava:GetAvaialableFoodDetails>
+        </format>
+        <args>
+        	<arg evaluator="xml" expression="$ctx:City" xmlns:ns="http://org.apache.synapse/xsd"/>
+            <arg evaluator="xml" expression="$ctx:PIN" xmlns:ns="http://org.apache.synapse/xsd"/>
+        </args>
+    </payloadFactory>
+    
+     <send>
+            <endpoint>
+                <address uri="http://35.201.31.70:9763/services/GetAvaialableFood"/>
+            </endpoint>
+        </send>
+     
+
+   
+
+
+
+</sequence>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="SubmitSupplier_IN_SEQ" trace="disable" xmlns="http://ws.apache.org/ns/synapse">
+  <property expression="json-eval($)" name="CompleteResponse"
+    scope="default" type="STRING"/>
+  <property expression="json-eval($.FirstName)" name="FirstName"
+    scope="default" type="STRING"/>
+  <property expression="json-eval($.LastName)" name="LastName"
+    scope="default" type="STRING"/>
+  <property expression="json-eval($.SupplierAddress)"
+    name="SupplierAddress" scope="default" type="STRING"/>
+  <property expression="json-eval($.SupplierTypeID)"
+    name="SupplierTypeID" scope="default" type="STRING"/>
+  <property expression="json-eval($.DeliveryAddress)"
+    name="DeliveryAddress" scope="default" type="STRING"/>
+  <property expression="json-eval($.DeliveryType)" name="DeliveryType"
+    scope="default" type="STRING"/>
+  <property expression="json-eval($.DeliveryPIN)" name="DeliveryPIN"
+    scope="default" type="STRING"/>
+  <property expression="json-eval($.SupplierPIN)" name="SupplierPIN"
+    scope="default" type="STRING"/>
+  <property expression="json-eval($.PhoneNumber)" name="PhoneNumber"
+    scope="default" type="STRING"/>
+  <property expression="json-eval($.EmailID)" name="EmailID"
+    scope="default" type="STRING"/>
+    
+    
+    <dblookup xmlns="http://ws.apache.org/ns/synapse">
+ <connection>
+      <pool>
+        <password>hBkeCfhK8343gDv4</password>
+        <property name="autocommit" value="false"/>
+        <driver>com.mysql.jdbc.Driver</driver>
+        <url>jdbc:mysql://35.244.118.95:3306/Datacomp2019</url>
+        <user>root</user>
+      </pool>
+    </connection>
+<statement><sql>select Phone_Number from Supplier_Detail where Phone_Number = ?</sql>
+<parameter expression="$ctx:PhoneNumber" type="VARCHAR"/>
+<result name="PhoneNumberReturned" column="Phone_Number"/></statement>
+</dblookup>
+
+
+<filter xpath="(string-length($ctx:PhoneNumberReturned)>0 )">
+                <then>
+                    <payloadFactory media-type="json">
+                        <format>{
+								    "StatusCode": "1",
+								    "Description": "Supplier already registered"
+								}
+
+						</format>
+                    </payloadFactory>
+                   <respond/>
+                </then>
+                
+                </filter>
+  <dbreport>
+    <connection>
+      <pool>
+        <password>hBkeCfhK8343gDv4</password>
+        <property name="autocommit" value="false"/>
+        <driver>com.mysql.jdbc.Driver</driver>
+        <url>jdbc:mysql://35.244.118.95:3306/Datacomp2019</url>
+        <user>root</user>
+      </pool>
+    </connection>
+    <statement>
+      <sql><![CDATA[insert into Supplier_Detail (FirstName, LastName, Supplier_Address, Supplier_Type_ID, Delivery_Address, Delivery_Type, Delivery_PIN, Supplier_PIN, Phone_Number, EmailID) values (?,?,?,?,?,?,?,?,?,?)]]></sql>
+      <parameter expression="synapse:get-property('FirstName')" type="VARCHAR"/>
+      <parameter expression="synapse:get-property('LastName')" type="VARCHAR"/>
+      <parameter expression="synapse:get-property('SupplierAddress')" type="VARCHAR"/>
+      <parameter expression="synapse:get-property('SupplierTypeID')" type="VARCHAR"/>
+      <parameter expression="synapse:get-property('DeliveryAddress')" type="VARCHAR"/>
+      <parameter expression="synapse:get-property('DeliveryType')" type="VARCHAR"/>
+      <parameter expression="synapse:get-property('DeliveryPIN')" type="VARCHAR"/>
+      <parameter expression="synapse:get-property('SupplierPIN')" type="VARCHAR"/>
+      <parameter expression="synapse:get-property('PhoneNumber')" type="VARCHAR"/>
+      <parameter expression="synapse:get-property('EmailID')" type="VARCHAR"/>
+    </statement>
+  </dbreport>
+  <payloadFactory media-type="json">
+    <format>
+    {
+		"StatusCode": "0", 
+		"Description": "Registration has been done successfully" 
+	}
+		</format>
+    <args/>
+  </payloadFactory>
+  <property value="201" name="HTTP_SC" scope="axis2"
+    type="STRING" xmlns:ns="http://org.apache.synapse/xsd"/>
+  <respond/>
+</sequence>

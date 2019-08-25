@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?><artifacts>
+    <artifact name="datacomp" groupId="com.datacomp.api" version="1.0.0" type="synapse/api" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/api/datacomp.xml</file>
+    </artifact>
+    <artifact name="SubmitSupplier_IN_SEQ" groupId="com.datacomp.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/SubmitSupplier_IN_SEQ.xml</file>
+    </artifact>
+    <artifact name="SubmitDonatedFoodDetails_IN_SEQ" groupId="com.datacomp.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/SubmitDonatedFoodDetails_IN_SEQ.xml</file>
+    </artifact>
+    <artifact name="GetAvailableFoodDetails_IN_SEQ" groupId="com.datacomp.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/GetAvailableFoodDetails_IN_SEQ.xml</file>
+    </artifact>
+    <artifact name="GetAvailableFoodDetails_OUT_SEQ" groupId="com.datacomp.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/GetAvailableFoodDetails_OUT_SEQ.xml</file>
+    </artifact>
+</artifacts>

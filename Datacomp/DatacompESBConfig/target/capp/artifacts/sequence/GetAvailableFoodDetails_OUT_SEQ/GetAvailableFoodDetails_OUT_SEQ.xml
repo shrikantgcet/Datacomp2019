@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="GetAvailableFoodDetails_OUT_SEQ" trace="disable" xmlns="http://ws.apache.org/ns/synapse">
+  <property name="ContentType" scope="axis2" type="STRING" value="application/json"/>
+  <property name="messageType" scope="axis2" type="STRING" value="application/json"/>
+  <respond/>
+</sequence>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="SubmitDonatedFoodDetails_IN_SEQ" trace="disable" xmlns="http://ws.apache.org/ns/synapse">
+
+<property expression="json-eval($)" name="CompleteResponse"
+    scope="default" type="STRING"/>
+  <property expression="json-eval($.FoodType)" name="FoodType"
+    scope="default" type="STRING"/>
+  <property expression="json-eval($.Quantity)" name="Quantity"
+    scope="default" type="STRING"/>
+  <property expression="json-eval($.ExpiryDate)"
+    name="ExpiryDate" scope="default" type="STRING"/>
+  <property expression="json-eval($.RegistrationID)"
+    name="RegistrationID" scope="default" type="STRING"/>
+      <property expression="json-eval($.City)"
+    name="City" scope="default" type="STRING"/>
+      <property expression="json-eval($.PIN)"
+    name="PIN" scope="default" type="STRING"/>
+  
+  <dbreport>
+    <connection>
+      <pool>
+        <password>hBkeCfhK8343gDv4</password>
+        <property name="autocommit" value="false"/>
+        <driver>com.mysql.jdbc.Driver</driver>
+        <url>jdbc:mysql://35.244.118.95:3306/Datacomp2019</url>
+        <user>root</user>
+      </pool>
+    </connection>
+    <statement>
+      <sql><![CDATA[insert into Donation_Food_Details (foodtype, quantity, expirydate, regretrationID, City, PIN) values (?,?,?, ?, ?, ?)]]></sql>
+      <parameter expression="synapse:get-property('FoodType')" type="VARCHAR"/>
+      <parameter expression="synapse:get-property('Quantity')" type="VARCHAR"/>
+      <parameter expression="synapse:get-property('ExpiryDate')" type="VARCHAR"/>
+      <parameter expression="synapse:get-property('RegistrationID')" type="VARCHAR"/>
+      <parameter expression="synapse:get-property('City')" type="VARCHAR"/>
+      <parameter expression="synapse:get-property('PIN')" type="VARCHAR"/>
+      
+    </statement>
+  </dbreport>
+  <payloadFactory media-type="json">
+    <format>
+    {
+		"StatusCode": "0", 
+		"Description": "Food Details saved Successfully" 
+	}
+		</format>
+    <args/>
+  </payloadFactory>
+ 
+  <respond/>
+
+</sequence>
